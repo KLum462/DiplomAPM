@@ -1,0 +1,54 @@
+﻿<Window x:Class="DiplomAPM.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Настройки системы" Height="550" Width="450"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#F0F2F5">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Настройки" Grid.Row="0" FontSize="26" FontWeight="Bold" Foreground="#333" Margin="0,0,0,20"/>
+
+        <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" Opacity="0.1"/>
+            </Border.Effect>
+
+            <StackPanel>
+                <TextBlock Text="🔒 Безопасность" FontSize="16" FontWeight="Bold" Margin="0,0,0,15" Foreground="#005eb8"/>
+
+                <TextBlock Text="Ваш логин" Foreground="Gray" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtLogin" Height="30" Margin="0,0,0,15" Padding="5"/>
+
+                <TextBlock Text="Старый пароль" Foreground="Gray" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="pbOldPass" Height="30" Margin="0,0,0,15" Padding="5"/>
+
+                <TextBlock Text="Новый пароль" Foreground="Gray" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="pbNewPass" Height="30" Margin="0,0,0,20" Padding="5"/>
+
+                <Button Content="Сменить пароль" Click="BtnChangePass_Click" Height="40"
+                        Background="#E67E22" Foreground="White" BorderThickness="0" FontWeight="Bold" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="10">
+            <TextBlock Text="ℹ️ О программе" FontWeight="Bold" Foreground="#555" Margin="0,0,0,10"/>
+            <TextBlock Text="Система учета заявок «ИАЦ АРМ»" Foreground="#777"/>
+            <TextBlock Text="Версия: 1.0.0 (Release)" Foreground="#777"/>
+            <TextBlock Text="Разработчик: Студент 4 курса" Foreground="#777"/>
+            <TextBlock Text="© 2026 СПб ГУП «СПб ИАЦ»" Foreground="#999" FontSize="10" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
