@@ -37,8 +37,6 @@ namespace DiplomAPM
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string login = txtLogin.Text.Trim();
-
-            // Выбираем актуальный пароль в зависимости от того, какое поле сейчас активно
             string password = (txtPasswordVisible.Visibility == Visibility.Visible)
                               ? txtPasswordVisible.Text
                               : txtPassword.Password;
