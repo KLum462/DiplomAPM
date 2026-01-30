@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiplomAPM;
+using System;
 using System.Data;
 using System.Data.SqlClient; 
 using System.Windows;
@@ -43,21 +44,17 @@ namespace DiplomAPM
 
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
-                txtError.Text = "Введите логин и пароль";
-                txtError.Visibility = Visibility.Visible;
+                ShowError("Введите логин и пароль");
                 return;
             }
-            // Открываем Dashboard
-            DashboardWindow dash = new DashboardWindow();
-            dash.Show();
-            this.Close(); // Закрываем окно логина
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    // Используем параметры (@u, @p) - это защита от SQL-инъекций (Комиссия спросит!)
-                    string query = "SELECT RoleID, FIO FROM Users WHERE Login=@u AND Password=@p";
+                    // ВАЖНО: В запросе обязательно нужно достать UserID, чтобы записать его в сессию!
+                    string query = "SELECT UserID, RoleID, FIO FROM Users WHERE Login=@u AND Password=@p";
 
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@u", login);
@@ -67,15 +64,20 @@ namespace DiplomAPM
 
                     if (reader.HasRows)
                     {
-               
-                        reader.Read();
-                        int roleId = reader.GetInt32(0);
-                        string fio = reader.GetString(1);
+                        reader.Read(); // Читаем первую строку
 
-     
-                        MessageBox.Show($"Добро пожаловать, {fio}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // 1. Сохраняем данные в глобальную сессию (чтобы ушла ошибка в AuditLogger)
+                        UserSession.UserId = reader.GetInt32(0); // 0 - это индекс колонки UserID
+                                                                 // RoleID пропускаем (индекс 1), если он пока не нужен
+                        UserSession.FIO = reader.GetString(2);   // 2 - это индекс колонки FIO
 
-                  
+                        // 2. Логируем вход (Теперь ошибки не будет, т.к. UserSession заполнен)
+                        AuditLogger.Log("Вход", $"Пользователь {UserSession.FIO} вошел в систему");
+
+                        // 3. Только ТЕПЕРЬ открываем главное окно
+                        DashboardWindow dash = new DashboardWindow();
+                        dash.Show();
+                        this.Close();
                     }
                     else
                     {

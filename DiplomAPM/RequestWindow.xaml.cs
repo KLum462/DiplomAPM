@@ -9,7 +9,7 @@ namespace DiplomAPM // Убедись, что тут твое название �
     public partial class RequestWindow : Window
     {
         string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
-
+        private int _requestId = 0;
         // Переменная для хранения ID редактируемой заявки (если null — значит новая)
         private int? _currentRequestId = null;
 
@@ -92,7 +92,10 @@ namespace DiplomAPM // Убедись, что тут твое название �
                 MessageBox.Show("Заполните все поля!");
                 return;
             }
-
+            if (_requestId == 0)
+                AuditLogger.Log("Создание", "Создана новая заявка");
+            else
+                AuditLogger.Log("Редактирование", $"Изменены данные заявки №{_requestId}");
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))

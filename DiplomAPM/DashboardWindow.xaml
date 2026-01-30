@@ -103,7 +103,10 @@
 
                 <Button Content="📋  Все обращения" Style="{StaticResource MenuButton}" Background="#34495E" Foreground="White"/>
                 <Button Content="👤  Граждане" Click="BtnCitizens_Click" Style="{StaticResource MenuButton}"/>
+                
                 <Button Content="📊  Отчеты" Click="BtnReports_Click" Style="{StaticResource MenuButton}"/>
+                <Button Content="📁 Справочники" Click="BtnReferences_Click" Style="{StaticResource MenuButton}"/>
+                <Button Content="🛡 Аудит" Click="BtnAudit_Click" Style="{StaticResource MenuButton}"/>
                 <Button Content="👥 Персонал" Click="BtnAdmin_Click" Style="{StaticResource MenuButton}"/>
                 <Button Content="⚙️  Настройки" Click="BtnSettings_Click" Style="{StaticResource MenuButton}"/>
 
@@ -130,7 +133,9 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,15" Cursor="">
                 <Button Content="+ Добавить" Click="BtnAdd_Click" Style="{StaticResource ActionButton}" Background="#27AE60" Height="57" Width="102"  Margin="0,0,20,0"/>
-
+                    <Button Content="🔍 Детали" Click="BtnDetails_Click" 
+                Style="{StaticResource ActionButton}" 
+                Background="#3498DB" Height="54" Width="120" Margin="0,0,20,0"/>    
                 <Button Content="✎ Редактировать" Click="BtnEdit_Click" Style="{StaticResource ActionButton}" Background="#F39C12" Height="54" Width="168" Margin="0,0,20,0"/>
                 <Button Content="🗑 Удалить" Click="BtnDelete_Click" Style="{StaticResource ActionButton}" Background="#E74C3C"/>
 
@@ -144,7 +149,8 @@
                     <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.1"/>
                 </Border.Effect>
 
-                <DataGrid x:Name="dgRequests" IsReadOnly="True" SelectionMode="Single"/>
+                <DataGrid x:Name="dgRequests" IsReadOnly="True" SelectionMode="Single" 
+          MouseDoubleClick="dgRequests_MouseDoubleClick"/>
             </Border>
         </Grid>
     </Grid>

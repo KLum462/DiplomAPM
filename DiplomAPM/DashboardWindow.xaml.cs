@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient; 
 using System.Windows;
+using System.Windows.Input;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DiplomAPM
@@ -26,7 +27,7 @@ namespace DiplomAPM
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    // ХИТРЫЙ ЗАПРОС: Мы берем данные из Requests и "подтягиваем" названия из других таблиц
+            
                     string query = @"
                         SELECT 
                             r.RequestID AS [Номер],
@@ -55,6 +56,41 @@ namespace DiplomAPM
             {
                 MessageBox.Show("Ошибка при загрузке данных: " + ex.Message);
             }
+        }
+        private void BtnDetails_Click(object sender, RoutedEventArgs e)
+        {
+      
+            if (dgRequests.SelectedItem is DataRowView row)
+            {
+
+                int id = (int)row["Номер"];
+
+
+                RequestDetailsWindow detailsWin = new RequestDetailsWindow(id);
+
+
+                this.Opacity = 0.5;
+
+
+                detailsWin.ShowDialog();
+
+
+                this.Opacity = 1;
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите обращение из списка для просмотра деталей.");
+            }
+        }
+        private void dgRequests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BtnDetails_Click(sender, e); // Вызываем тот же метод, что и при клике на кнопку
+        }
+
+        private void BtnReferences_Click(object sender, RoutedEventArgs e)
+        {
+            ReferenceWindow refWin = new ReferenceWindow();
+            refWin.ShowDialog(); // Открываем как модальное окно
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -101,6 +137,7 @@ namespace DiplomAPM
                             SqlCommand cmd = new SqlCommand("DELETE FROM Requests WHERE RequestID = @id", con);
                             cmd.Parameters.AddWithValue("@id", id);
                             cmd.ExecuteNonQuery();
+                            AuditLogger.Log("Удаление", $"Удалена заявка №{id}.");
                         }
                         LoadData(); // Обновляем таблицу
                     }
@@ -180,6 +217,11 @@ namespace DiplomAPM
         {
             AdminWindow adminWin = new AdminWindow();
             adminWin.ShowDialog();
+        }
+        private void BtnAudit_Click(object sender, RoutedEventArgs e)
+        {
+            AuditWindow audit = new AuditWindow();
+            audit.Show();
         }
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
