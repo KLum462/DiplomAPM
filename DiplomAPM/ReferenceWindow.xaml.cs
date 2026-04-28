@@ -3,12 +3,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Configuration; // Не забудьте добавить using
 namespace DiplomAPM
 {
     public partial class ReferenceWindow : Window
     {
-        string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         int selectedId = -1;
 
         public ReferenceWindow()

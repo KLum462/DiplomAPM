@@ -3,12 +3,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Configuration; // Не забудьте добавить using
 namespace DiplomAPM
 {
     public partial class AuditWindow : Window
     {
-        string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         DataTable dtLogs = new DataTable(); // Храним данные для фильтрации
 
         public AuditWindow()

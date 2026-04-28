@@ -3,13 +3,13 @@ using System;
 using System.Data;
 using System.Data.SqlClient; 
 using System.Windows;
-
+using System.Configuration; // Не забудьте добавить using
 namespace DiplomAPM
 {
     public partial class MainWindow : Window
     {
-      
-        string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+
+        string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public MainWindow()
         {
@@ -58,7 +58,8 @@ namespace DiplomAPM
 
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@u", login);
-                    cmd.Parameters.AddWithValue("@p", password);
+                    // Хешируем введенный логин, чтобы сравнить его с хешем в БД
+                    cmd.Parameters.AddWithValue("@p", DiplomAPM.Helpers.PasswordHasher.HashPassword(password));
 
                     SqlDataReader reader = cmd.ExecuteReader();
 

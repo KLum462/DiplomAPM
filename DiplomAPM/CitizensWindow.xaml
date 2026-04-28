@@ -1,8 +1,13 @@
 ﻿<Window x:Class="DiplomAPM.CitizensWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:DiplomAPM.ViewModels"
         Title="Управление гражданами" Height="600" Width="900"
         WindowStartupLocation="CenterScreen" Background="#F0F2F5">
+
+    <Window.DataContext>
+        <vm:CitizensViewModel />
+    </Window.DataContext>
 
     <Window.Resources>
         <Style TargetType="DataGrid">
@@ -37,8 +42,10 @@
                 <TextBlock Text="База данных заявителей" FontSize="14" Foreground="#888" Margin="15,5,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
-            <Button Content="+ Новый гражданин" Click="BtnAddCitizen_Click" HorizontalAlignment="Right"
-                    Background="#27AE60" Foreground="White" Padding="15,8" BorderThickness="0" FontWeight="SemiBold" Cursor="Hand" Margin="0,0,0,-15">
+            <Button Content="+ Новый гражданин" 
+        Command="{Binding AddCitizenCommand}"
+        HorizontalAlignment="Right"
+        Background="#27AE60" Foreground="White" Padding="15,8" BorderThickness="0" FontWeight="SemiBold" Cursor="Hand" Margin="0,0,0,-15">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -54,7 +61,7 @@
                 <DropShadowEffect BlurRadius="15" Direction="-90" ShadowDepth="2" Opacity="0.1"/>
             </Border.Effect>
 
-            <DataGrid x:Name="dgCitizens" IsReadOnly="True" SelectionMode="Single"/>
+            <DataGrid x:Name="dgCitizens" ItemsSource="{Binding CitizensList}" IsReadOnly="True" SelectionMode="Single"/>
         </Border>
     </Grid>
 </Window>

@@ -3,12 +3,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Configuration; // Не забудьте добавить using
 namespace DiplomAPM
 {
     public partial class AdminWindow : Window
     {
-        string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         int selectedUserId = -1; // Для определения, редактируем мы или создаем нового
 
         public AdminWindow()
@@ -65,7 +65,8 @@ namespace DiplomAPM
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@fio", txtFIO.Text);
                 cmd.Parameters.AddWithValue("@log", txtLogin.Text);
-                cmd.Parameters.AddWithValue("@pass", pbPassword.Password); // В реальном проекте лучше хешировать!
+                // Вызываем наш метод хеширования перед сохранением в БД
+                cmd.Parameters.AddWithValue("@pass", DiplomAPM.Helpers.PasswordHasher.HashPassword(pbPassword.Password));
                 cmd.Parameters.AddWithValue("@rid", cbRoles.SelectedValue);
                 if (selectedUserId != -1) cmd.Parameters.AddWithValue("@id", selectedUserId);
 

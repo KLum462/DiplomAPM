@@ -2,13 +2,13 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
-
+using System.Configuration; 
 namespace DiplomAPM
 {
     public partial class RequestDetailsWindow : Window
     {
         // Используем ту же строку подключения, что и в остальных окнах
-        string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         int currentRequestId;
 
         public RequestDetailsWindow(int requestId)

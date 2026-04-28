@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Windows;
-
+using System.Configuration; // Не забудьте добавить using
 namespace DiplomAPM
 {
     public partial class SettingsWindow : Window
     {
-        string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public SettingsWindow()
         {
@@ -32,7 +32,7 @@ namespace DiplomAPM
                 {
                     con.Open();
 
-                    // 2. ХИТРЫЙ ЗАПРОС: Мы пытаемся обновить пароль, НО только если Логин и Старый пароль совпадают.
+      
                     string query = "UPDATE Users SET Password = @new WHERE Login = @login AND Password = @old";
 
                     SqlCommand cmd = new SqlCommand(query, con);

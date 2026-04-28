@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Windows;
-
+using System.Configuration;
 namespace DiplomAPM
 {
     public static class AuditLogger
     {
         // Строка подключения (такая же, как в других окнах)
-        private static string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public static void Log(string actionType, string description)
         {
@@ -39,4 +39,4 @@ namespace DiplomAPM
             }
         }
     }
-}
+} 

@@ -2,13 +2,14 @@
 using System.Data.SqlClient; // Не забудь про SQL
 using System.Windows;
 using System.Windows.Input;
+using System.Configuration; 
 
 namespace DiplomAPM
 {
     public partial class AddCitizenWindow : Window
     {
         // Проверь строку подключения!
-        string connectionString = @"Server=localhost;Database=DiplomAPM;Trusted_Connection=True;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public AddCitizenWindow()
         {

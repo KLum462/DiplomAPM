@@ -18,12 +18,37 @@
       <Isolated>false</Isolated>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>7</VersionMinor>
+      <VersionMajor>8</VersionMajor>
+      <Guid>00020905-0000-0000-c000-000000000046</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.11" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.5" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+
+    <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+    <PackageReference Include="MaterialDesignColors" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\КОЛЛЕДЖ\4 Курс\2 Семестр\ДИПЛОМНАЯ РАБОТА\DiplomAPM Stable Version 1.1\DiplomAPM\DiplomAPM\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\КОЛЛЕДЖ\4 Курс\2 Семестр\ДИПЛОМНАЯ РАБОТА\DiplomAPM Stable Version 1.1\DiplomAPM\DiplomAPM\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>
