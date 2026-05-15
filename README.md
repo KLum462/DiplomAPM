@@ -1,6 +1,6 @@
 # 🏢 АРМ Сотрудника отдела обработки обращений граждан
 
-![.NET](https://img.shields.io/badge/.NET-10.0-blueviolet)
+![.NET](https://img.shields.io/badge/.NET-8.0-blueviolet)
 ![WPF](https://img.shields.io/badge/WPF-Windows_Desktop-blue)
 ![C#](https://img.shields.io/badge/C%23-12.0-green)
 ![MS SQL Server](https://img.shields.io/badge/Database-MS_SQL_Server-red)
